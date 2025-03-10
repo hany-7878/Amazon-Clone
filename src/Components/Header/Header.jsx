@@ -1,20 +1,30 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import classes from "./Header.module.css"
+import { Link } from 'react-router-dom';
 
 import { SlLocationPin } from "react-icons/sl";
 import LowerHeader from './LowerHeader';
 import { BsSearch } from "react-icons/bs";
 import { BiCart } from "react-icons/bi";
+import { DataContext,DataProvider } from '../DataProvider/DataProvider';
+import { auth } from '../../Utility/firebase';
+
 
 function Header() {
+  const [{basket, user}, dispatch]=useContext(DataContext)
+  const totalItem=basket?.reduce((amount, item)=>{
+    return item.amount+amount
+  },0)
+  
+
   return (
-    <section>
+    <section className={classes.fixed}>
       <div className={classes.header__container}>
         {/* logo section */}
         <div className={classes.logo__container}>
-          <a href="">
+          <Link to="/">
             <img src="https://pngimg.com/uploads/amazon/amazon_PNG11.png" alt="Amazon logo" />
-          </a>
+          </Link>
 
           {/* delivery */}
           <div className={classes.delivery}>
@@ -34,7 +44,7 @@ function Header() {
             <option value="">All</option>
           </select>
           <input type="text" placeholder="Search Amazon" />
-          <BsSearch size={25} />
+          <BsSearch size={35} />
         </div>
 
         {/* language and flag */}
@@ -48,22 +58,35 @@ function Header() {
         {/* right side links */}
         <div className={classes.right__links}>
           {/* Sign In */}
-          <a href="">
-            <p>Hello,Sign In</p>
-            <span>Account & Lists</span>
-          </a>
+          <Link to={!user && "/auth"}>
+          <div>
+            {user? (
+              <>
+                <p>Hello {user?.email?.split("@")[0]}</p>
+                <span onClick={() => auth.signOut()}>Sign Out</span>
+                </>
+              ) : (
+                <>
+                 <p>Hello,Sign In</p>
+                 <span>Account & Lists</span>
+                </>
+              )}
+          </div>
+            
+          </Link>
 
           {/* Orders */}
-          <a href="" className={classes.order__container}>
+          <Link to="/orders" className={classes.order__container}>
             <p>Returns</p>
             <span>& Orders</span>
-          </a>
+          </Link>
 
           {/* Cart */}
-          <a href="/cart" className={classes.cart}>
+          <Link to="/cart" className={classes.cart}>
             <BiCart size={25} />
-            <span>0</span>
-          </a>
+            <span className={classes.span0}>{totalItem}</span>
+            <p>Cart</p>
+          </Link>
         </div>
       </div>
       <LowerHeader/>

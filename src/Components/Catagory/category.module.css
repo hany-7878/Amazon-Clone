@@ -1,0 +1,56 @@
+/* Category Section (Overlap with Hero) */
+.category__container {
+    position: relative;
+    margin-top: -12% !important;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+    max-width: 1600px;
+    place-items: center;
+    z-index: 1;
+    gap: 50px;
+    width: 90%;
+    margin: 0 auto;
+}
+
+/* Individual Category Box */
+.category {
+    height: 320px;
+    width: 320px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    padding: 10px;
+    border-radius: 2px;
+    transition: transform 0.3s ease-in-out; 
+}
+
+.category:hover {
+    transform: scale(1.05); 
+}
+
+.category img {
+    width: 100%;
+    object-fit: contain;
+    max-height: 250px;
+    padding: 0px 10px;
+}
+
+.category a {
+    text-decoration: none;
+    color: rgb(35, 35, 35);
+}
+
+.category h2, .category p {
+    padding: 5px;
+    margin-left: 15px;
+}
+
+.category p {
+    font-size: 12px;
+    font-weight: bold;
+    color: rgb(9, 112, 209);
+}
+
+
+
+
