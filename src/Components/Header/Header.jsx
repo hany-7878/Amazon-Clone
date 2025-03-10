@@ -16,7 +16,6 @@ function Header() {
     return item.amount+amount
   },0)
   
-
   return (
     <section className={classes.fixed}>
       <div className={classes.header__container}>
